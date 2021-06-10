@@ -12,14 +12,23 @@
      - php-fpm 
 
   tasks:
-   - name: Install apt packages
-     apt:
-       pkg: "{{ packages }}"
-       state: latest
-       update_cache: yes
+    - name: Backup static content
+      copy:
+        dest: /home/nginx/backup/$(date)/
+        src: /var/www/
+        remote_src: yes
+        backup: yes
+        directory_mode: True
+        mode: 0644
 
-   - name: Nginx service enable and restart
-     service:
-       name: nginx
-       state: restarted
-       enabled: yes
+    - name: Install apt packages
+      apt:
+        pkg: "{{ packages }}"
+        state: latest
+        update_cache: yes
+
+    - name: Nginx service enable and restart
+      service:
+        name: nginx
+        state: restarted
+        enabled: yes
