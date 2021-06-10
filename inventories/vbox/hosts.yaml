@@ -1,0 +1,9 @@
+---
+all:
+  children:
+    db:
+      hosts:
+        debian-02:
+    web:
+      hosts:
+        debian-03:

@@ -1,0 +1,25 @@
+---
+- name: Install packages 
+  hosts: web
+  become: true
+  vars:
+   - packages:
+     - mariadb-server
+     - nginx
+     - curl
+     - wordpress
+     - php
+     - php-fpm 
+
+  tasks:
+   - name: Install apt packages
+     apt:
+       pkg: "{{ packages }}"
+       state: latest
+       update_cache: yes
+
+   - name: Services restart
+     service:
+       name: "{{ packages }}"
+       state: restarted
+       enabled: yes
