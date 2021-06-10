@@ -18,8 +18,8 @@
        state: latest
        update_cache: yes
 
-   - name: Services restart
+   - name: Nginx service enable and restart
      service:
-       name: "{{ packages }}"
+       name: nginx
        state: restarted
        enabled: yes
